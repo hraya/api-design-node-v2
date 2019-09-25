@@ -24,3 +24,7 @@ If you see issues:
 * cut a branch
 * write your code
 * issue PR to upstream
+
+
+# My personal note
+* notes from lecture taken on lesson-1 branch in **server.js**
