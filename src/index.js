@@ -1,4 +1,5 @@
 import http from 'http'
+import config from './config/index'
 // import { execute, subscribe } from 'graphql'
 import { createServer } from 'http'
 
@@ -8,8 +9,8 @@ import app from './server'
 const server = http.createServer(app)
 let currentApp = app
 
-server.listen(3000, () => {
-	console.log('Server listening on port 3000')
+server.listen(config.port, () => {
+	console.log(`Server listening on port ${config.port}`)
 })
 
 if (module.hot) {

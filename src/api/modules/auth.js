@@ -1,9 +1,10 @@
 import { User } from '../resources/user/user.model'
 import jwt from 'jsonwebtoken'
 import expressJwt from 'express-jwt'
+import config from '../../config'
 const jwtSecret = 'blueRhinoJumps'
 
-const checkToken = expressJwt({ secret: jwtSecret })
+const checkToken = expressJwt({ secret: config.secret })
 const disableAuth = false
 
 export const signin = (req, res, next) => {
@@ -15,7 +16,7 @@ export const signin = (req, res, next) => {
 }
 
 export const decodeToken = () => (req, res, next) => {
-  if (disableAuth) {
+  if (config.disableAuth) {
     return next()
   }
   // make it optional to place token on query string
@@ -33,6 +34,9 @@ export const decodeToken = () => (req, res, next) => {
 }
 
 export const getFreshUser = () => (req, res, next) => {
+  if (config.disableAuth) {
+    return next()
+  }
   return User.findById(req.user.id)
     .then(function(user) {
       if (!user) {
